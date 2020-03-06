@@ -7,27 +7,27 @@ using namespace std;
 const double EPS = 1e-7;
 
 int main() {
-    double a, b, c, delta, bsqr, r, i, x1, x2;
+    double a, b, c, fac, bsqr, r, i, x1, x2;
     cin >> a >> b >> c;
 
-    delta = 4 * a * c;
+    fac = 4 * a * c;
     bsqr = pow(b, 2.0);
 
     cout .setf(ios::fixed|ios::showpoint);
     cout << setprecision(5);
 
-    if (abs(bsqr - delta) < EPS) {
-        x1 = (-b + sqrt(bsqr-delta))/(2*a);
+    if (abs(bsqr - fac) < EPS) {
+        x1 = (-b + sqrt(bsqr-fac))/(2*a);
         cout << "x1=x2=" << x1 << endl;
     }
-    else if (bsqr > delta) {
-        x1 = (-b + sqrt(bsqr-delta))/(2*a);
-        x2 = (-b - sqrt(bsqr-delta))/(2*a);
+    else if (bsqr > fac) {
+        x1 = (-b + sqrt(bsqr-fac))/(2*a);
+        x2 = (-b - sqrt(bsqr-fac))/(2*a);
         cout << "x1=" << x1 << ";x2=" << x2 << endl;
     }
-    else if (bsqr < delta) {
+    else if (bsqr < fac) {
         r = -b / (2*a);
-        i = sqrt(delta-bsqr) / (2*a);
+        i = sqrt(fac-bsqr) / (2*a);
 
         if (abs(r) <= EPS) {
           r = 0;
