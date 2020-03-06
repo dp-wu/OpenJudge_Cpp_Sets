@@ -17,17 +17,17 @@ int main() {
     cout << setprecision(5);
 
     if (abs(bsqr - delta) < EPS) {
-        x1 = (-b + sqrt(b*b-4*a*c))/(2*a);
+        x1 = (-b + sqrt(bsqr-delta))/(2*a);
         cout << "x1=x2=" << x1 << endl;
     }
     else if (bsqr > delta) {
-        x1 = (-b + sqrt(b*b-4*a*c))/(2*a);
-        x2 = (-b - sqrt(b*b-4*a*c))/(2*a);
+        x1 = (-b + sqrt(bsqr-delta))/(2*a);
+        x2 = (-b - sqrt(bsqr-delta))/(2*a);
         cout << "x1=" << x1 << ";x2=" << x2 << endl;
     }
     else if (bsqr < delta) {
         r = -b / (2*a);
-        i = sqrt(4*a*c-b*b) / (2*a);
+        i = sqrt(delta-bsqr) / (2*a);
 
         if (abs(r) <= EPS) {
           r = 0;
