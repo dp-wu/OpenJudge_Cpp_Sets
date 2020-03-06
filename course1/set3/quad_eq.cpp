@@ -13,7 +13,7 @@ int main() {
     fac = 4 * a * c;
     bsqr = pow(b, 2.0);
 
-    cout .setf(ios::fixed|ios::showpoint);
+    cout.setf(ios::fixed|ios::showpoint);
     cout << setprecision(5);
 
     if (abs(bsqr - fac) < EPS) {
