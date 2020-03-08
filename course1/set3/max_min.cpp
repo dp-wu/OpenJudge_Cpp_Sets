@@ -1,3 +1,5 @@
+//给定一个长度为n的非负整数序列，请计算序列的最大跨度值（最大跨度值 = 最大值减去最小值）。
+
 #include <iomanip>
 #include <iostream>
 using namespace std;
