@@ -1,3 +1,5 @@
+//给定一个整数，判断该数是奇数还是偶数。
+
 #include <iostream>
 using namespace std;
 
