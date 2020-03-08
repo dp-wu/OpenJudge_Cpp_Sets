@@ -1,3 +1,6 @@
+//2008年北京奥运会，A国的运动员参与了n天的决赛项目(1≤n≤17)。
+//现在要统计一下A国所获得的金、银、铜牌数目及总奖牌数。
+
 #include <iostream>
 using namespace std;
 
