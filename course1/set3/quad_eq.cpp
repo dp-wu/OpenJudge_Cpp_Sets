@@ -1,3 +1,7 @@
+//利用公式x1 = (-b + sqrt(b*b-4*a*c))/(2*a), 
+//x2 = (-b - sqrt(b*b-4*a*c))/(2*a)求一元二次方程
+//ax2+ bx + c =0的根，其中a不等于0。
+
 #include <iomanip>
 #include <iostream>
 using namespace std;
