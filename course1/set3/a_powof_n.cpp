@@ -1,3 +1,5 @@
+//给出一个整数a和一个正整数n，求乘方an。
+
 #include <iostream>
 using namespace std;
 
