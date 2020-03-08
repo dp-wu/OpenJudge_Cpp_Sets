@@ -1,3 +1,5 @@
+//读入n（1 <= n <= 10000）个整数，求它们的和与均值。
+
 #include <iomanip>
 #include <iostream>
 using namespace std;
