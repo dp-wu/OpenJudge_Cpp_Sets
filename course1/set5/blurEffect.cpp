@@ -13,3 +13,35 @@
 n行，每行m个整数，为模糊处理后的图像。相邻两个整数之间用单个空格隔开。
 */
 
+
+#include <iostream>
+using namespace std;
+
+int main() {
+  int rows, cols;
+  scanf("%d%d", &rows, &cols);
+
+  double matrix[rows][cols];
+  double newMatrix[rows][cols];
+
+  //construct matrix
+  for (int r=0; r<rows; ++r) {
+    for (int c=0; c<cols; ++c) {
+      scanf("%lf", &matrix[r][c]);
+      newMatrix[r][c] = matrix[r][c];
+    }
+  }
+
+  for (int i=1; i<rows-1; ++i) {
+    for (int j=1; j<cols-1; ++j) {
+      newMatrix[i][j] = (matrix[i-1][j]+matrix[i+1][j]+matrix[i][j-1]+matrix[i][j+1]+matrix[i][j])/5;
+    }
+  }
+
+  for (int r=0; r<rows; ++r) {
+    for (int c=0; c<cols; ++c) {
+      printf("%.0f ", newMatrix[r][c]);
+    }
+    printf("\n");
+  }
+}
