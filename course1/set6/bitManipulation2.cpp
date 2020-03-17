@@ -1,3 +1,5 @@
+/*,该整数的第i位是n的第i位取反，其余位和n相同*/
+
 #include <iostream>
 using namespace std;
 
