@@ -1,3 +1,8 @@
+/* 
+Implemented with insertion sort
+*/
+
+
 #include <iostream>
 using namespace std;
 
