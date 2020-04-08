@@ -13,22 +13,12 @@ int compare(void *a, void *b) {
     student *s1 = (student *) a;
     student *s2 = (student *) b;
     
-    if (s1->score > s2->score) {
-        return 1;
-    }
-    else if (s1->score < s2->score) {
-        return -1;
-    }
+    if (s1->score > s2->score) return 1;
+    else if (s1->score < s2->score) return -1;
     else {
-        if (strcmp(s1->name, s2->name) < 0) {
-            return 1;
-        }
-        else if (strcmp(s1->name, s2->name) > 0) {
-            return -1;
-        }
-        else {
-            return 0;
-        }
+        if (strcmp(s1->name, s2->name) < 0) return 1;
+        else if (strcmp(s1->name, s2->name) > 0) return -1;
+        else return 0;
     }
 }
 
@@ -65,6 +55,4 @@ int main() {
     for (int k=0; k<num; ++k) {
         cout << studentInfo[k].name << " " << studentInfo[k].score << endl;
     }
-    
-    return 0;
 }
