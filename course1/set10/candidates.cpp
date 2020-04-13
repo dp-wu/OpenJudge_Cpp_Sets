@@ -1,6 +1,7 @@
 /* 
-My code looks a little tedious, I don't like it myself.
-I'll learn from other people's code if I find a good one and update this file. 
+My code looks pretty tedious. 
+The four parallel for-loops are stupid, there should be a better way to code this.
+I'll learn from other people's code if I find a good one and update my file. 
 */
 
 #include <iostream>
