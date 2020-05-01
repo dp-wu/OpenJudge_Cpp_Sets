@@ -1,64 +1,40 @@
-/* 
-//First attemp failed, it works with one sample test case but
-//generates compile error when run in oj.
-//I couldn't figure out which line is causing it. 
-//but i'm guessing it's caused by the very large array 'barn'.
+#include <cstdio>
+#include <algorithm>
 
-#include <iostream>
-using namespace std;
-
-
-int barn[1000000001]={0};
 
 int main() {
-    int N, C, smallest, largest, step, temp, counter, bestStep=0;
+    int N, C;
     scanf("%d%d", &N, &C);
     
+    int barn[N];
     for (int i=0; i<N; ++i) {
         scanf("%d", &barn[i]);
-        if (i>=1) {
-            for (int k=i; k>0; --k) {
-                if (barn[k] < barn[k-1]) {
-                    temp = barn[k];
-                    barn[k] = barn[k-1];
-                    barn[k-1] = temp;
-                }
-            }
-        }
     }
+    std::sort(barn, barn+N);
     
-//    for (int t=0; t<N; ++t) printf("%d ", barn[t]);
-//    printf("\n");
+    int left, right, mid, best=0;
+    left = barn[0];
+    right = barn[N-1]/C;
     
-    smallest = barn[0];
-    largest = barn[N-1];
-    step = 0;
-    
-    while (smallest < largest) {
-        step = smallest + (largest-smallest)/2;
+    while (left <= right) {
+        mid = left + (right-left)/2;
         
-        temp = 0;
-        counter = 0;
-        for (int j=0; j<N; ++j) {
-            if (j>=1) {
-                if (temp+barn[j]-barn[j-1] > step) {
-                    temp = 0;
+        int cur = 0, counter=1;
+        for (int i=1; i<C; ++i) {
+            for (int j=cur; j<N; ++j) {
+                if (barn[j] - mid >= barn[cur]) {
+                    cur = j;
                     counter++;
+                    break;
                 }
-                temp += barn[j]-barn[j-1];
             }
-            else temp=barn[j];
         }
         
-        //printf("smallest:%d largest:%d step:%d counter:%d\n", smallest, largest, step, counter);
-        
-        if (counter >= C) {
-            bestStep = step;
-            smallest = step+1;
+        if (counter == C) {
+            best = mid;
+            left = mid+1;
         }
-        else largest = step-1;
+        else right = mid-1;
     }
-    printf("%d\n", bestStep);
+    printf("%d\n", best);
 }
-
-*/
