@@ -1,5 +1,39 @@
+// A slightly better version
 #include <iostream>
-#include <algorithm>
+#include <set>
+#include <string>
+using namespace std;
+
+
+int main() {
+    int n;
+    string instruc;
+    cin >> n;
+    
+    multiset<int> st;
+    multiset<int> stCopy; // this one is only for the "ask" operation
+    int xList[n];
+    for (int i=0; i<n; ++i) {
+        cin >> instruc >> xList[i];
+        if (instruc == "add") {
+            st.insert(xList[i]);
+            stCopy.insert(xList[i]);
+            cout << st.count(xList[i]) << endl;
+        }
+        else if (instruc == "del") {
+            cout << st.count(xList[i]) << endl;
+            st.erase(xList[i]);
+        }
+        else if (instruc == "ask") {
+            cout << (stCopy.find(xList[i]) != stCopy.end()) << " " << st.count(xList[i]) << endl;
+        }
+    }
+}
+
+
+
+/*
+#include <iostream>
 #include <set>
 #include <string>
 using namespace std;
@@ -33,3 +67,4 @@ int main() {
         }
     }
 }
+*/
