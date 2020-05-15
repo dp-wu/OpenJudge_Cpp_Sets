@@ -28,7 +28,6 @@ int main() {
     memList.insert({1, 1000000000});
     for (int i=1; i<n; ++i) {
         cin >> member.id >> member.stats;
-        //memList.insert(member);
         p = memList.insert(member);
         
         match[i].id = p->id;
