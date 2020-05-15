@@ -30,29 +30,18 @@ int main() {
         cin >> member.id >> member.stats;
         //memList.insert(member);
         p = memList.insert(member);
-        if (p == --memList.end()) {
-            match[i].id = p->id;
-            match[i].stats = (--p)->id;
-            continue;
-        }
+        
+        match[i].id = p->id;
+        if (p == --memList.end()) match[i].stats = (--p)->id;
         else if (p->id == member.id) {
             pp = p;
             pn = p;
-            --pp;
-            ++pn;
 
-            previous = ((pp)->stats) - (p->stats);
-            next = (p->stats) - ((pn)->stats);
+            previous = ((--pp)->stats) - (p->stats);
+            next = (p->stats) - ((++pn)->stats);
 
-            if (previous >= next) {
-                match[i].id = p->id;
-                match[i].stats = (pn)->id;
-            }
-            else {
-                match[i].id = p->id;
-                match[i].stats = (pp)->id;
-            }
-            continue;
+            if (previous >= next) match[i].stats = pn->id;
+            else match[i].stats = pp->id;
         }
     }
     for (int j=1; j<n; ++j) cout << match[j].id << " " << match[j].stats << endl;
