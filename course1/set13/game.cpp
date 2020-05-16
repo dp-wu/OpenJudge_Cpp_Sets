@@ -5,58 +5,53 @@
 #include <map>
 #include <string>
 using namespace std;
-
-
+ 
 typedef map<int, int, greater<int>> Map; // <stats, id>
-
+ 
 struct Match {
     int id;
     int op;
 };
-
+ 
 int main() {
     int n, pre, nxt, id, stats;
     cin >> n;
     ++n;
-    
+ 
     Match match[n];
     match[0] = {1, 1};
-    
+ 
     Map mp; // init mp
     mp[1000000000] = 1; // Facer info
-    
+ 
     for (int i=1; i<n; ++i) {
         cin >> id >> stats;
         match[i].id = id;
-        
-        // if found same stats, return existing id
-        if (mp.find(stats)!=mp.end()) {
+ 
+        if (mp.find(stats)!=mp.end()) { // if found existing item, get id
             match[i].op = mp[stats];
             continue;
         }
-        else mp[stats] = id; // if not found, insert new info
-        
-        Map::iterator p, pr, pn; // pointers to use when comparing diffs
-        p = mp.find(stats); // point to the element with same stats
+        else mp[stats] = id; // insert new item if none exist in map
+ 
+        Map::iterator p, pr, pn; // pr, pn banchmark with p
+        p = mp.find(stats); // get p
         pr = p;
         pn = p;
-        ++pn;
-        --pr;
-        
-        if (pn == mp.end()) match[i].op = (pr)->second; // if is the last element, return previous id
+        ++pn; // point to nxt p
+        --pr; // point to pre p
+ 
+        if (pn == mp.end()) match[i].op = pr->second; // if is the last, get pre id
         else {
             pre = (pr->first - p->first);
             nxt = (p->first - pn->first);
-            
-            if (nxt < pre) match[i].op = pn->second; // if stats closer to next, return next id
-            else {
-                if (nxt == pre) {
-                    // if diff is same, return smaller id
-                    if (pr->second < pn->second) match[i].op = pr->second;
-                    else match[i].op = pn->second;
-                }
-                else match[i].op = pr->second; // if next > pre return previous id
+             
+            if (nxt < pre) match[i].op = pn->second; // if nxt<pre, get nxt id
+            else if (nxt == pre) { // if nxt=pre, get smaller id
+                if (pr->second < pn->second) match[i].op = pr->second;
+                else match[i].op = pn->second;
             }
+            else match[i].op = pr->second; // if next>pre, get pre id
         }
     }
     for (int j=1; j<n; ++j) cout << match[j].id << " " << match[j].op << endl;
