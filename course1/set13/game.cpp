@@ -24,16 +24,15 @@
 using namespace std;
 
 
-typedef map<long long, long long, greater<long long>> Map; // <stats, id>
+typedef map<int, int, greater<int>> Map; // <stats, id>
 
 struct Match {
-    long long id;
-    long long op;
+    int id;
+    int op;
 };
 
 int main() {
-    int n;
-    long long pre, nxt, id, stats;
+    int n, pre, nxt, id, stats;
     cin >> n;
     ++n;
 
@@ -48,8 +47,11 @@ int main() {
         match[i].id = id;
 
         if (mp.find(stats)!=mp.end()) { // if found existing item, get id
+            match[i].op = mp[stats]; 
+            // here was where i got it wrong, if I change the id before taking notes of the old id,
+            // there will be situations which the new member would be competing with himself
+            // there is a variation (but almost identical) way to handle this situation posted below
             if (id < mp[stats]) mp[stats] = id;
-            match[i].op = mp[stats];
             continue;
         }
         else mp[stats] = id; // insert new item if none exist in map
@@ -76,3 +78,68 @@ int main() {
     }
     for (int j=1; j<n; ++j) cout << match[j].id << " " << match[j].op << endl;
 }
+
+
+
+
+/*
+HERE is a variation of the code, almost identical but slightly more efficient:
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+
+typedef map<int, int, greater<long long>> Map; // <stats, id>
+
+struct Match {
+    int id;
+    int op;
+};
+
+int main() {
+    int n, pre, nxt, id, stats;
+    cin >> n;
+    ++n;
+
+    Match match[n];
+    match[0] = {1, 1};
+
+    Map mp; // init mp
+    pair<Map::iterator,bool> p;
+    Map::iterator pt, pr, pn;
+    mp[1000000000] = 1; // Facer info
+
+    for (int i=1; i<n; ++i) {
+        cin >> id >> stats;
+        match[i].id = id;
+        
+        p = mp.insert(make_pair(stats, id));
+        if (p.second == false) {
+            match[i].op = mp[stats];
+            if (id < mp[stats]) mp[stats] = id;
+        } // insertion failed
+        else {
+            pt = mp.find(stats); // get p
+            pr = pt;
+            pn = pt;
+            ++pn; // point to nxt p
+            --pr; // point to pre p
+
+            if (pn == mp.end()) match[i].op = pr->second; // if is the last item, get pre id
+            else {
+                pre = (pr->first - pt->first);
+                nxt = (pt->first - pn->first);
+                
+                if (nxt < pre) match[i].op = pn->second; // if nxt<pre, get nxt id
+                else if (nxt == pre) { // if nxt=pre, get smaller id
+                    if (pr->second < pn->second) match[i].op = pr->second;
+                    else match[i].op = pn->second;
+                }
+                else match[i].op = pr->second; // if next>pre, get pre id
+            }
+        }
+    }
+    for (int j=1; j<n; ++j) cout << match[j].id << " " << match[j].op << endl;
+}
+*/
