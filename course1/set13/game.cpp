@@ -6,7 +6,7 @@
 
 1. mp是一个map，它的key是战力值。排序方式是从大到小。
 
-2. 当有新会员加入时，由于新会员的id一定比老会员的id数值大，所以在战力值与map中已有某个record的战力值相同时，插入失败跳过（以保证战力值相同情况下map中保留的record一直是id最小那个人的）。
+2. 当有新会员加入时，若果新会员战力值与map中已有record的战力值相同，比较新会员与已有会员id，如果新会员id小就替换成新会员id，否则插入失败跳过（以保证战力值相同情况下map中保留的record一直是id最小那个人的）。
 
 3. 确定对手id时有以下几种状况：
 
@@ -22,47 +22,50 @@
 #include <map>
 #include <string>
 using namespace std;
- 
-typedef map<int, int, greater<int>> Map; // <stats, id>
- 
+
+
+typedef map<long long, long long, greater<long long>> Map; // <stats, id>
+
 struct Match {
-    int id;
-    int op;
+    long long id;
+    long long op;
 };
- 
+
 int main() {
-    int n, pre, nxt, id, stats;
+    int n;
+    long long pre, nxt, id, stats;
     cin >> n;
     ++n;
- 
+
     Match match[n];
     match[0] = {1, 1};
- 
+
     Map mp; // init mp
     mp[1000000000] = 1; // Facer info
- 
+
     for (int i=1; i<n; ++i) {
         cin >> id >> stats;
         match[i].id = id;
- 
+
         if (mp.find(stats)!=mp.end()) { // if found existing item, get id
+            if (id < mp[stats]) mp[stats] = id;
             match[i].op = mp[stats];
             continue;
         }
         else mp[stats] = id; // insert new item if none exist in map
- 
+
         Map::iterator p, pr, pn; // pr, pn banchmark with p
         p = mp.find(stats); // get p
         pr = p;
         pn = p;
         ++pn; // point to nxt p
         --pr; // point to pre p
- 
-        if (pn == mp.end()) match[i].op = pr->second; // if is the last, get pre id
+
+        if (pn == mp.end()) match[i].op = (pr)->second; // if is the last item, get pre id
         else {
             pre = (pr->first - p->first);
             nxt = (p->first - pn->first);
-             
+            
             if (nxt < pre) match[i].op = pn->second; // if nxt<pre, get nxt id
             else if (nxt == pre) { // if nxt=pre, get smaller id
                 if (pr->second < pn->second) match[i].op = pr->second;
