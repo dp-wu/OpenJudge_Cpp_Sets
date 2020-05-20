@@ -1,9 +1,4 @@
-/* couldn't pass the 1000-entries test case. I'll update this file once figured out where the problem is*/
-/*
-1000的测试集没通过。我前后看了几遍代码还是没找到问题出在哪里。就剩三根头发了，请老师和同学们帮我康康到底是肿么肥四。
-
-为了节省同学和老师的时间我简单解释一下代码的工作逻辑：
-
+/* 
 1. mp是一个map，它的key是战力值。排序方式是从大到小。
 
 2. 当有新会员加入时，若果新会员战力值与map中已有record的战力值相同，比较新会员与已有会员id，如果新会员id小就替换成新会员id，否则插入失败跳过（以保证战力值相同情况下map中保留的record一直是id最小那个人的）。
