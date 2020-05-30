@@ -12,4 +12,6 @@ int main() {
     else if (N >= 5 && N < 10) printf("%.3f\n", y2);
     else if (N >= 10 && N < 20) printf("%.3f\n", y3);
     else printf("error");
+    
+    return 0;
 }
