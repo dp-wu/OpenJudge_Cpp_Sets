@@ -16,4 +16,6 @@ int main() {
     
     result = recur(n, p0, q0, result);
     printf("%.4f\n", result);
+    
+    return 0;
 }
