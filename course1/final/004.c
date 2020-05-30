@@ -20,4 +20,5 @@ int main() {
     }
     
     printf("%.10f", e);
+    return 0;
 }
